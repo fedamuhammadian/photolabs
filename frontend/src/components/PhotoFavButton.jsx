@@ -8,7 +8,6 @@ function PhotoFavButton({ photo, toggleFavourite }) {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleClick() {
-    // console.log(props);
     setIsLiked(!isLiked);
     toggleFavourite(photo);
   }
