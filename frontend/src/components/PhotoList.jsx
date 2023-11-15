@@ -3,6 +3,7 @@ import PhotoListItem from './PhotoListItem';
 
 import "../styles/PhotoList.scss";
 
+{/*
 const sampleDataForPhotoList = [
   {
     id: "1",
@@ -56,15 +57,26 @@ const sampleDataForPhotoList = [
     },
   },
 ];
+*/}
 
-const PhotoList = () => {
+const PhotoList = ({ photos, toggleFavourite, openModal, PhotoDetailsModal, setDisplayModal, setPhotoData, isFavorited }) => {
   return (
     <ul className="photo-list">
-      {/* Insert React */}
-          {sampleDataForPhotoList.map((photoData) => (
-        <li key={photoData.id}>
-          <PhotoListItem data={photoData} />
-        </li>
+      {photos && photos.map((photo) => (
+        <PhotoListItem
+          key={photo.id}
+          photo={photo}
+          toggleFavourite={toggleFavourite}
+          imageSource={photo.urls.regular}
+          profile={photo.user.profile}
+          username={photo.user.name}
+          location={photo.location}
+          openModal={() => openModal(photo)}
+          PhotoDetailsModal={PhotoDetailsModal}
+          setDisplayModal={setDisplayModal}
+          setPhotoData={setPhotoData}
+          isFavorited={isFavorited}
+        />
       ))}
     </ul>
   );

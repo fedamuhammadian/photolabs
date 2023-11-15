@@ -1,28 +1,37 @@
 import React from "react";
 
+import PhotoFavButton from './PhotoFavButton';
 import "../styles/PhotoListItem.scss";
 
 
 
 
-const PhotoListItem = (props) => {
-  const { id, location, user } = props.data;
-  const { regular, profile } = props.data.urls;
-
+const PhotoListItem = ({ photo, toggleFavourite, imageSource, profile, username, location, openModal }) => {
   return (
-    <div className="photo-list-item">
-      <img src={regular} alt={`Photo by ${user.username}`} className="photo-list__image" />
-      <h3>{`Photo ${id}`}</h3>
-      <div className="photo-list__user-details ">
-        <img src={user.profile} className="photo-list__user-profile" />
-        <div>
-          <p className="photo-list__user-info">{user.name}</p>
-          <p className="photo-list__user-location">
-            {location.city}, {location.country}
-          </p>
+    <li className="photo-list__item">
+      <PhotoFavButton
+      photo={photo}
+        toggleFavourite={toggleFavourite}
+      />
+      <img
+        className="photo-list__image"
+        src={imageSource}
+        alt="User's photo"
+         onClick={openModal}
+      />
+      <section className="photo-list__user-details">
+        <img
+          className="photo-list__user-profile"
+          src={profile}
+          alt="User's profile"
+        />
+        <div className="photo-list__user-info">{username}
+          <div className="photo-list__user-location">{location.city}, 
+          {location.country}</div>
         </div>
-        </div>
-    </div>
+      </section>
+    </li>
+    
   );
 };
 
