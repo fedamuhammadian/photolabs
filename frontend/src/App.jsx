@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 
 
-import mockphotos from './mocks/photos';
-import mocktopics from './mocks/topics';
+//import mockphotos from './mocks/photos';
+//import mocktopics from './mocks/topics';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'hooks/useApplicationData';
@@ -23,19 +23,21 @@ const App = () => {
     toggleFavourite,
     openModal,
     closeModal,
-    photos,
+    photoData,
+    topicData,
   } = useApplicationData();
-  
+
   return (
     <div className="App">
-      <HomeRoute photos={photos} openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
+      <HomeRoute photoData={photoData} topicData={topicData} openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
       {isModalOpen && (
         <PhotoDetailsModal
           photo={selectedPhoto}
           toggleFavourite={toggleFavourite}
           onClose={() => {
-          closeModal();
-           }}
+            closeModal();
+          }}
+          similarPhotos={selectedPhoto.similar_photos}
         />
       )}
     </div>

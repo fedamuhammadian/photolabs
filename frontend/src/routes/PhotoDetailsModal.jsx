@@ -8,7 +8,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = ({ photo, onClose, toggleFavourite }) => {
-  const similarPhotos = Object.values(photo.similar_photos);
+  const similarPhotos = photo.similar_photos;
 
   return (
     <div className="photo-details-modal">

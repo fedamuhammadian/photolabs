@@ -1,11 +1,12 @@
-import { useReducer } from "react";
-import mockphotos from '../mocks/photos';
-import mocktopics from '../mocks/topics';
+import { useReducer, useEffect } from "react";
+
+//import mockphotos from '../mocks/photos';
+//import mocktopics from '../mocks/topics';
 
 //initial state
 const initialState = {
-  photos: mockphotos,
-  topicData: mocktopics,
+  photoData: [],
+  topicData: [],
   isModalOpen: false,
   selectedPhoto: null,
   isFavorited: [],
@@ -39,6 +40,16 @@ function appReducer(state, action) {
         isModalOpen: false,
         selectedPhoto: null,
       };
+      case "SET_PHOTO_DATA": 
+      return {
+        ...state,
+        photoData: action.payload,
+      };
+      case "SET_TOPIC_DATA": 
+      return {
+        ...state,
+        topicData: action.payload,
+      };
     default:
       return state;
   }
@@ -46,9 +57,70 @@ function appReducer(state, action) {
 
 function useApplicationData() {
   const [state, dispatch] = useReducer(appReducer, initialState);
+    //Define action types
+    const ACTIONS = {
+      SET_PHOTO_DATA: "SET_PHOTO_DATA",
+      SET_TOPIC_DATA: "SET_TOPIC_DATA",
+    };
+  
+  // Fetch photos and topics data when the custom hook is initialized
+  const apiUrl = "http://localhost:8001/api";
+  useEffect(() => {
+    fetch(`${apiUrl}/photos`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error fetching photos:", error);
+      });
+  }, []);
+  
+  
+  useEffect(() => {
+    fetch(`${apiUrl}/topics`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error fetching topics:", error);
+      });
+  }, []);
+
+  const fetchTopics = () => {
+    fetch(`${apiUrl}/topics`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error fetching topics:", error);
+      });
+  };
+  
+  const fetchPhotosByTopic = (topicId) => {
+    const apiUrl = `http://localhost:8001/api/topics/photos/${topicId}`;
+  
+    return fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Handle the fetched photos data here, e.g., store it in state or return it
+        return data;
+      })
+      .catch((error) => {
+        console.error("Error fetching photos by topic:", error);
+        throw error; // Rethrow the error for further handling in the component
+      });
+  }
 
   
-  const { photos, topicData, isModalOpen, selectedPhoto, isFavorited } = state;
+  const { photoData, topicData, isModalOpen, selectedPhoto, isFavorited } = state;
 
   
   const toggleFavourite = (photo) => {
@@ -64,7 +136,7 @@ function useApplicationData() {
   };
 
   return {
-    photos,
+    photoData,
     topicData,
     isModalOpen,
     selectedPhoto,
@@ -72,6 +144,8 @@ function useApplicationData() {
     toggleFavourite,
     openModal,
     closeModal,
+    fetchPhotosByTopic,
+    fetchTopics,
   };
 }
 
