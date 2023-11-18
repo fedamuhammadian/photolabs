@@ -4,13 +4,13 @@ import FavBadge from './FavBadge';
 import TopicList from './TopicList';
 import '../styles/TopNavigationBar.scss'
 
-const TopNavigation = ({ isFavorited }) => {
+const TopNavigation = ({ isFavorited, selectedTopicId, onTopicClick }) => {
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList />
+      <TopicList onTopicClick={onTopicClick} selectedTopicId={selectedTopicId} />
       <div className="top-nav-bar__icon-container">
-      <FavBadge isFavorited={isFavorited} /> 
+        <FavBadge isFavorited={isFavorited} />
       </div>
     </div>
   )

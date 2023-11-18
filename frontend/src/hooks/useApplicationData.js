@@ -1,7 +1,5 @@
 import { useReducer, useEffect } from "react";
 
-//import mockphotos from '../mocks/photos';
-//import mocktopics from '../mocks/topics';
 
 //initial state
 const initialState = {
@@ -100,24 +98,17 @@ function useApplicationData() {
   };
   
   const fetchPhotosByTopic = (topicId) => {
-    const apiUrl = `http://localhost:8001/api/topics/photos/${topicId}`;
-  
-    return fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+    // Fetch photos for the selected topic
+    fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
+    
+      .then((response) => response.json())
       .then((data) => {
-        // Handle the fetched photos data here, e.g., store it in state or return it
-        return data;
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
       })
       .catch((error) => {
-        console.error("Error fetching photos by topic:", error);
-        throw error; // Rethrow the error for further handling in the component
+        console.error('Error fetching photos:', error);
       });
-  }
+  };
 
   
   const { photoData, topicData, isModalOpen, selectedPhoto, isFavorited } = state;

@@ -12,6 +12,7 @@ const HomeRoute = (props) => {
   const defaultState = [];
   const [isFavorited, setIsFavourited] = useState(defaultState);
   const toggleFavourite = (photo) => {
+
     if (isFavorited.includes(photo)) {
       let newFavourites = [...isFavorited].filter((favouritePhoto) => photo !== favouritePhoto)
       setIsFavourited(newFavourites);
@@ -23,21 +24,10 @@ const HomeRoute = (props) => {
     }
   };
 
-  const handleTopicClick = (topicId) => {
-    // Fetch photos for the clicked topic
-    fetchPhotosByTopic(topicId)
-      .then((photos) => {
-        // Handle the fetched photos, e.g., update your component state
-        console.log("Fetched photos by topic:", photos);
-      })
-      .catch((error) => {
-        // Handle any errors from the fetchPhotosByTopic function
-        console.error("Error handling topic click:", error);
-      });
-  };
+
   return (
     <div className="home-route">
-      <TopNavigation isFavorited={isFavorited} />
+      <TopNavigation isFavorited={isFavorited} onTopicClick={fetchPhotosByTopic} />
       <PhotoList
         photos={photoData}
         topics={topicData}
