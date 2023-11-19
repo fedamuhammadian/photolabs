@@ -13,17 +13,19 @@ const initialState = {
 
 function appReducer(state, action) {
   switch (action.type) {
-    case "TOGGLE_FAVORITE":
+    case "TOGGLE_FAVOURITE":
+      const photoId = action.payload;
+
       // Check if the photo is already favorited
-      if (state.isFavorited.includes(action.payload)) {
+      if (state.isFavorited.includes(photoId)) {
         return {
           ...state,
-          isFavorited: state.isFavorited.filter((photo) => photo !== action.payload),
+          isFavorited: state.isFavorited.filter((favouritePhotoId) => favouritePhotoId !== photoId),
         };
       } else {
         return {
           ...state,
-          isFavorited: [...state.isFavorited, action.payload],
+          isFavorited: [...state.isFavorited, photoId],
         };
       }
     case "OPEN_MODAL":
@@ -38,12 +40,12 @@ function appReducer(state, action) {
         isModalOpen: false,
         selectedPhoto: null,
       };
-      case "SET_PHOTO_DATA": 
+    case "SET_PHOTO_DATA":
       return {
         ...state,
         photoData: action.payload,
       };
-      case "SET_TOPIC_DATA": 
+    case "SET_TOPIC_DATA":
       return {
         ...state,
         topicData: action.payload,
@@ -51,17 +53,20 @@ function appReducer(state, action) {
     default:
       return state;
   }
-} 
+}
 
 function useApplicationData() {
   const [state, dispatch] = useReducer(appReducer, initialState);
-    //Define action types
-    const ACTIONS = {
-      SET_PHOTO_DATA: "SET_PHOTO_DATA",
-      SET_TOPIC_DATA: "SET_TOPIC_DATA",
-    };
+  //Define action types
   
+  const ACTIONS = {
+    SET_PHOTO_DATA: "SET_PHOTO_DATA",
+    SET_TOPIC_DATA: "SET_TOPIC_DATA",
+    TOGGLE_FAVOURITE: "TOGGLE_FAVOURITE",
+  };
+
   // Fetch photos and topics data when the custom hook is initialized
+  
   const apiUrl = "http://localhost:8001/api";
   useEffect(() => {
     fetch(`${apiUrl}/photos`)
@@ -72,9 +77,9 @@ function useApplicationData() {
       .catch((error) => {
         console.error("Error fetching photos:", error);
       });
-  }, []);
-  
-  
+  }, [ACTIONS.SET_PHOTO_DATA]);
+
+
   useEffect(() => {
     fetch(`${apiUrl}/topics`)
       .then((response) => response.json())
@@ -84,7 +89,7 @@ function useApplicationData() {
       .catch((error) => {
         console.error("Error fetching topics:", error);
       });
-  }, []);
+  }, [ACTIONS.SET_TOPIC_DATA]);
 
   const fetchTopics = () => {
     fetch(`${apiUrl}/topics`)
@@ -96,11 +101,11 @@ function useApplicationData() {
         console.error("Error fetching topics:", error);
       });
   };
-  
+
   const fetchPhotosByTopic = (topicId) => {
+
     // Fetch photos for the selected topic
     fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
-    
       .then((response) => response.json())
       .then((data) => {
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
@@ -110,12 +115,12 @@ function useApplicationData() {
       });
   };
 
-  
+
   const { photoData, topicData, isModalOpen, selectedPhoto, isFavorited } = state;
 
-  
-  const toggleFavourite = (photo) => {
-    dispatch({ type: "TOGGLE_FAVORITE", payload: photo });
+
+  const toggleFavourite = (photoId) => {
+    dispatch({ type: "TOGGLE_FAVOURITE", payload: photoId });
   };
 
   const openModal = (photo) => {

@@ -4,17 +4,18 @@ import PhotoFavButton from './PhotoFavButton';
 import "../styles/PhotoListItem.scss";
 
 
-const PhotoListItem = ({ toggleFavourite, imageSource, profile, username, location, openModal }) => {
+const PhotoListItem = ({ toggleFavourite, isFavorited, imageSource, profile, username, location, openModal }) => {
+
   return (
     <li className="photo-list__item">
       <PhotoFavButton
-      //photoData={photoData}
         toggleFavourite={toggleFavourite}
+        isFavorited={isFavorited}
       />
       <img
         className="photo-list__image"
         src={imageSource}
-        alt="User's photo"
+        alt="User's photograph"
          onClick={openModal}
       />
       <section className="photo-list__user-details">

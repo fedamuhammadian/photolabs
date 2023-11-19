@@ -4,12 +4,12 @@ import  { useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton({ photo, toggleFavourite }) {
+function PhotoFavButton({ photoId, toggleFavourite }) {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleClick() {
     setIsLiked(!isLiked);
-    toggleFavourite(photo);
+    toggleFavourite(photoId);
   }
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>

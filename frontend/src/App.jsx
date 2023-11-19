@@ -1,11 +1,6 @@
 import React from 'react';
 
-import { useState } from 'react';
 
-
-
-//import mockphotos from './mocks/photos';
-//import mocktopics from './mocks/topics';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'hooks/useApplicationData';

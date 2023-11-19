@@ -1,38 +1,27 @@
 import React from "react";
 
-//import topics from '../mocks/topics';
+
 import TopicListItem from "./TopicListItem";
+import useApplicationData from "hooks/useApplicationData";
 import "../styles/TopicList.scss";
 
 
-import  { useEffect, useState } from 'react';
+import  { useEffect } from 'react';
 
 const TopicList = ({ onTopicClick }) => {
-  const [topics, setTopics] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPhotos, setCurrentPhotos] = useState([]);
-  const [currentTopicId, setCurrentTopicId] = useState(null);
+  const { topicData, fetchTopics, isLoading } = useApplicationData();
 
   useEffect(() => {
-   
-    fetch('http://localhost:8001/api/topics')
-      .then((response) => response.json())
-      .then((data) => {
-        setTopics(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching topics:', error);
-        setIsLoading(false);
-      });
-  }, []);
+    // Fetch topics when the component mounts
+    fetchTopics();
+  }, [fetchTopics]);
 
   return (
     <div className="top-nav-bar__topic-list">
       {isLoading ? (
         <p>Loading topics...</p>
       ) : (
-        topics.map((topic) => (
+        topicData.map((topic) => (
             <TopicListItem key={topic.id} topic={topic} onTopicClick={onTopicClick}
             />
         ))

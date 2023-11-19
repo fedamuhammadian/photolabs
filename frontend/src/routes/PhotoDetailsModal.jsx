@@ -24,7 +24,7 @@ const PhotoDetailsModal = ({ photo, onClose, toggleFavourite }) => {
         <img src={photo.urls.full} className="photo-details-modal__image" alt="SelectedPhoto" />
         <div className="photo-details-modal__top-bar" />
         <div className="photo-details-modal__photographer-details">
-          <img src={photo.user.profile} className="photo-list__user-profile" />
+          <img src={photo.user.profile} alt="user profile" className="photo-list__user-profile" />
           <section className="photo-list__user-info">
             <div className="photo-list__user-info">{photo.user.name}</div>
             <div className="photo-list__user-info photo-list__user-location">{photo.location.city}, {photo.location.country}</div>
