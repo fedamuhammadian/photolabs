@@ -6,8 +6,15 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 import useApplicationData from '../hooks/useApplicationData';
 
+// functional component for the HomeRoute
 const HomeRoute = (props) => {
-  const { photoData, topicData, fetchPhotosByTopic, toggleFavourite, isFavorited } = useApplicationData();
+  const {
+    photoData,
+    topicData,
+    fetchPhotosByTopic,
+    toggleFavourite,
+    isFavorited
+  } = useApplicationData();
 
 
   return (

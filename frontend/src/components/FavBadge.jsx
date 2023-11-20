@@ -11,7 +11,7 @@ const FavBadge = ({ isFavorited }) => {
       <FavIcon selected={true} displayAlert={true} /> 
        ) : (
 
-    <FavIcon selected={false} displayAlert={false} />
+    <FavIcon selected={true} displayAlert={false} />
        )}
        </div>
   ); 

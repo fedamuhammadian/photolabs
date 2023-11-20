@@ -54,9 +54,11 @@ function appReducer(state, action) {
       return state;
   }
 }
+// custom hook that is responsible for managing the application data
 
 function useApplicationData() {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  
   //Define action types
   
   const ACTIONS = {

@@ -24,7 +24,12 @@ const App = () => {
 
   return (
     <div className="App">
-      <HomeRoute photoData={photoData} topicData={topicData} openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
+      <HomeRoute
+        photoData={photoData}
+        topicData={topicData}
+        openModal={openModal}
+        isFavorited={isFavorited}
+        toggleFavourite={toggleFavourite} />
       {isModalOpen && (
         <PhotoDetailsModal
           photo={selectedPhoto}

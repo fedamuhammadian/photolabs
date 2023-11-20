@@ -7,7 +7,8 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
-const PhotoDetailsModal = ({ photo, onClose, toggleFavourite }) => {
+const PhotoDetailsModal = (props) => {
+  const { photo, onClose, toggleFavourite } = props
   const similarPhotos = photo.similar_photos;
 
   return (

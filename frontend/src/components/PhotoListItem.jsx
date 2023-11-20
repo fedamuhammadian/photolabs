@@ -4,7 +4,8 @@ import PhotoFavButton from './PhotoFavButton';
 import "../styles/PhotoListItem.scss";
 
 
-const PhotoListItem = ({ toggleFavourite, isFavorited, imageSource, profile, username, location, openModal }) => {
+const PhotoListItem = (props) => {
+  const { toggleFavourite, isFavorited, imageSource, profile, username, location, openModal } = props;
 
   return (
     <li className="photo-list__item">
