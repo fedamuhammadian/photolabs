@@ -8,7 +8,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { photo, onClose, toggleFavourite } = props
+  const { photo, onClose, toggleFavourite, isFavourited } = props;
   const similarPhotos = photo.similar_photos;
 
   return (
@@ -18,10 +18,8 @@ const PhotoDetailsModal = (props) => {
       </button>
       <div className="photo-details-modal__images">
         <div>
-          <PhotoFavButton
-            toggleFavourite={toggleFavourite} />
+          <PhotoFavButton isFavourited={isFavourited} toggleFavourite={toggleFavourite} />
         </div>
-        {/* <div className="photo-details-modal__image" /> */}
         <img src={photo.urls.full} className="photo-details-modal__image" alt="SelectedPhoto" />
         <div className="photo-details-modal__top-bar" />
         <div className="photo-details-modal__photographer-details">
