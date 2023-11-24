@@ -1,50 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import '../styles/HomeRoute.scss';
 
 import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
-import PhotoDetailsModal from './PhotoDetailsModal';
-import useApplicationData from '../hooks/useApplicationData';
+
 
 // functional component for the HomeRoute
 const HomeRoute = (props) => {
-  const {
-    photoData,
-    topicData,
-    fetchPhotosByTopic,
-    toggleFavourite,
-    isFavorited,
-  } = useApplicationData();
-
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const openModal = (photo) => {
-    setSelectedPhoto(photo);
-  };
-
-  const closeModal = () => {
-    setSelectedPhoto(null);
-  };
+  const { isFavorited, fetchPhotosByTopic } = props;
 
   return (
     <div className="home-route">
       <TopNavigation isFavorited={isFavorited} onTopicClick={fetchPhotosByTopic} />
       <PhotoList
-        photos={photoData}
-        topics={topicData}
-        openModal={openModal}
+        photos={props.photoData}
+        topics={props.topicData}
+        openModal={props.openModal}
         isFavorited={isFavorited}
-        toggleFavourite={toggleFavourite}
+        toggleFavourite={props.toggleFavourite}
       />
-      {selectedPhoto && (
-        <PhotoDetailsModal
-          photo={selectedPhoto}
-          onClose={closeModal}
-          isFavourited={isFavorited.includes(selectedPhoto.id)}
-          toggleFavourite={() => toggleFavourite(selectedPhoto.id)}
-        />
-      )}
     </div>
   );
 };

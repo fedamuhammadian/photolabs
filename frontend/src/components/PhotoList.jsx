@@ -14,6 +14,7 @@ const PhotoList = ( props ) => {
       {photos.map((photo) => (
         <PhotoListItem
           key={photo.id}
+          photoId={photo.id}
           toggleFavourite={toggleFavourite}
           imageSource={photo.urls.regular}
           profile={photo.user.profile}

@@ -8,9 +8,9 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const { photo, onClose, toggleFavourite, isFavourited } = props;
+  const { photo, onClose, toggleFavourite, isFavorited } = props;
   const similarPhotos = photo.similar_photos;
-
+  console.log('photoDetails', props.isFavorited)
   return (
     <div className="photo-details-modal">
       <button className="photo-details-modal__close-button" onClick={onClose}>
@@ -18,15 +18,29 @@ const PhotoDetailsModal = (props) => {
       </button>
       <div className="photo-details-modal__images">
         <div>
-          <PhotoFavButton isFavourited={isFavourited} toggleFavourite={toggleFavourite} />
+          <PhotoFavButton
+            toggleFavourite={toggleFavourite}
+            photoId={photo.id}
+            isFavorited={isFavorited}
+          />
         </div>
-        <img src={photo.urls.full} className="photo-details-modal__image" alt="SelectedPhoto" />
+        <img
+          src={photo.urls.full}
+          className="photo-details-modal__image"
+          alt="SelectedPhoto"
+        />
         <div className="photo-details-modal__top-bar" />
         <div className="photo-details-modal__photographer-details">
-          <img src={photo.user.profile} alt="user profile" className="photo-list__user-profile" />
+          <img
+            src={photo.user.profile}
+            alt="user profile"
+            className="photo-list__user-profile"
+          />
           <section className="photo-list__user-info">
             <div className="photo-list__user-info">{photo.user.name}</div>
-            <div className="photo-list__user-info photo-list__user-location">{photo.location.city}, {photo.location.country}</div>
+            <div className="photo-list__user-info photo-list__user-location">
+              {photo.location.city}, {photo.location.country}
+            </div>
           </section>
         </div>
         <div className="photo-details-modal__header">Similar Photos</div>
